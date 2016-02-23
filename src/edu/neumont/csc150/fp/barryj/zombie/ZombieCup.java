@@ -1,4 +1,4 @@
-package edu.neumont.csc150.fp.barryj;
+package edu.neumont.csc150.fp.barryj.zombie;
 
 import java.util.Random;
 
@@ -68,8 +68,6 @@ public class ZombieCup {
 		return dieSymbol;
 	}
 	
-	//fix this to grab from array instead of creating new ones
-	//appears to work properly, can't tell without determineColor() working
 	public void rollDice(int numOfDice) {
 		System.out.println();
 		diceRolled = new ZombieDie[numOfDice];

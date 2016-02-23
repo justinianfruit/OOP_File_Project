@@ -1,4 +1,4 @@
-package edu.neumont.csc150.fp.barryj;
+package edu.neumont.csc150.fp.barryj.zombie;
 
 import java.awt.GridLayout;
 import java.awt.Image;

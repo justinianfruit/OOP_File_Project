@@ -1,13 +1,15 @@
-package edu.neumont.csc150.fp.barryj;
+package edu.neumont.csc150.fp.barryj.crown;
 
-public class ZombieDie extends Die {
+import edu.neumont.csc150.fp.barryj.Die;
+
+public class CrownDie extends Die {
 	private String dieColor;
 
-	public ZombieDie() {
+	public CrownDie() {
 		
 	}
 	
-	public ZombieDie(String color, int symbol) {
+	public CrownDie(String color, int symbol) {
 		dieColor = color;
 		super.setDieSymbol(symbol);
 	}

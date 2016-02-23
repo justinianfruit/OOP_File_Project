@@ -1,4 +1,4 @@
-package edu.neumont.csc150.fp.barryj;
+package edu.neumont.csc150.fp.barryj.yahtzee;
 
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -10,11 +10,8 @@ import java.util.Random;
 
 import javax.swing.*;
 
-public class YahtzeeGUI implements MouseListener, ActionListener {
-	int rollCount;
-	int sum;
-	int total;
-	boolean[] dieHeld = {false, false, false, false, false};
+public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener {
+	ControlListener cl;
 	
 	JFrame yahtzeeWindow;
 	JPanel backgroundPanel;
@@ -33,7 +30,6 @@ public class YahtzeeGUI implements MouseListener, ActionListener {
 	JLabel rollLeft;
 	
 	JLabel[] picHolders;
-	int[] diceVals;
 	
 	JLabel [] scoreNum;
 	JLabel[] scoreLbl;
@@ -43,10 +39,8 @@ public class YahtzeeGUI implements MouseListener, ActionListener {
 	Color click;
 	Color sbt;
 	
-	public YahtzeeGUI() {
-		rollCount = 0;
-		sum = 0;
-		total = 0;
+	public YahtzeeGUI(ControlListener listener) {
+		cl = listener;
 		
 		yahtzeeWindow = new JFrame();
 		backgroundPanel = new JPanel(new GridLayout(1,3));
@@ -120,6 +114,22 @@ public class YahtzeeGUI implements MouseListener, ActionListener {
 		yahtzeeWindow.setSize(700,550);
 		yahtzeeWindow.setLocationRelativeTo(null);
 	}
+	
+	@Override
+	public void updateDie(YahtzeeDie die) {
+		if (die.isHeld()) {
+			die.changeImage("edu/neumont/csc150/fp/barryj/images/" + die.getDieSymbol() + "L.jpg");
+		} else if (!die.isHeld()) {
+			die.changeImage("edu/neumont/csc150/fp/barryj/images/" + die.getDieSymbol() + ".jpg");
+		}
+	}
+	
+	@Override
+	public void updateUI(YahtzeeDie die) {
+		for (int i = 0; i < 5; i++) {
+			picHolders[i].setIcon(die.getDieFace());
+		}
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -127,20 +137,11 @@ public class YahtzeeGUI implements MouseListener, ActionListener {
 			if (e.getSource() == scoreLbl[i]){	
 				scoreLbl[i].setForeground(click);
 			}
-			
 		}
 		
 		for (int i = 0; i < 5; i++) {
 			if (e.getSource() == picHolders[i]) {
-				dieHeld[i] = !dieHeld[i];
-				if (dieHeld[i]) {
-					picHolders[i].setIcon(new ImageIcon("src//images//" + diceVals[i] + "L.jpg"));
-					
-				} else if (!dieHeld[i]) {
-					picHolders[i].setIcon(new ImageIcon("src//images//" + diceVals[i] + ".jpg"));
-					
-				}
-				
+				cl.holdDie(i);
 			}
 		}
 		
@@ -432,5 +433,6 @@ public class YahtzeeGUI implements MouseListener, ActionListener {
 		}
 		return ref;
 	}
+
 	
 }

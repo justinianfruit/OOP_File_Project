@@ -11,7 +11,7 @@ public class Main {
 //			CandAGUI cg = new CandAGUI();
 //		}
 		//ZombieGUI zg = new ZombieGUI();
-		YahtzeeGUI yg = new YahtzeeGUI();
+		
 	}
 
 }
