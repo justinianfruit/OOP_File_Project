@@ -1,39 +1,19 @@
 package edu.neumont.csc150.fp.barryj.yahtzee;
 
+import java.util.Random;
+
 import edu.neumont.csc150.fp.barryj.Die;
 
 public class YahtzeeDie extends Die {
-	private String imagePath;
 	private boolean isHeld;
 	private ObjectListener ol;
+	private Random randGen = new Random();
 
 	public YahtzeeDie(ObjectListener listener) {
+		isHeld = false;
 		ol = listener;
-		evalSymb(getDieSymbol());
-		changeImage(imagePath);
-	}
-	
-	public void evalSymb(int symbol) {
-		switch (symbol) {
-		case 1:
-			imagePath = "edu/neumont/csc150/fp/barryj/images/1.jpg";
-			break;
-		case 2:
-			imagePath = "edu/neumont/csc150/fp/barryj/images/2.jpg";
-			break;
-		case 3:
-			imagePath = "edu/neumont/csc150/fp/barryj/images/3.jpg";
-			break;
-		case 4: 
-			imagePath = "edu/neumont/csc150/fp/barryj/images/4.jpg";
-			break;
-		case 5:
-			imagePath = "edu/neumont/csc150/fp/barryj/images/5.jpg";
-			break;
-		case 6:
-			imagePath = "edu/neumont/csc150/fp/barryj/images/6.jpg";
-			break;
-		}
+		setDieSymbol(randGen.nextInt(6) + 1);
+		changeImage("/edu/neumont/csc150/fp/barryj/images/" + getDieSymbol() + ".jpg");
 	}
 
 	public boolean isHeld() {

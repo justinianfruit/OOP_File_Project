@@ -4,6 +4,6 @@ public interface ObjectListener {
 
 	public void updateDie(YahtzeeDie die);
 	
-	public void updateUI(YahtzeeDie die);
+	public void updateUI(int i, YahtzeeDie die);
 	
 }

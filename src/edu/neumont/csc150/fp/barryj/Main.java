@@ -1,5 +1,7 @@
 package edu.neumont.csc150.fp.barryj;
 
+import edu.neumont.csc150.fp.barryj.yahtzee.YahtzeeGame;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -11,7 +13,7 @@ public class Main {
 //			CandAGUI cg = new CandAGUI();
 //		}
 		//ZombieGUI zg = new ZombieGUI();
-		
+		YahtzeeGame yg = new YahtzeeGame();
 	}
 
 }
