@@ -19,10 +19,11 @@ public class YahtzeeDie extends Die {
 	public boolean isHeld() {
 		return isHeld;
 	}
+
 	public void setisHeld(boolean dieHeld) {
 		this.isHeld = dieHeld;
 	}
-	
+
 	public void flipBoolean() {
 		setisHeld(!isHeld());
 		ol.updateDie(this);

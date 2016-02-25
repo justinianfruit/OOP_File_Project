@@ -8,15 +8,15 @@ public class ZombieGame {
 	ZombiePlayer[] players;
 	boolean winner = false;
 	int numOfPlayers;
-	
+
 	public static void main(String[] args) {
 		ZombieGame zombie = new ZombieGame();
 	}
-	
+
 	public ZombieGame() {
 		playGame();
 	}
-	
+
 	public void playGame() {
 		greetPlayers();
 		while (!winner) {
@@ -34,7 +34,7 @@ public class ZombieGame {
 			declareWinner(players);
 		}
 	}
-	
+
 	public void greetPlayers() {
 		String name;
 		System.out.println("Welcome to the Zombie Dice! Enjoy the game!");
@@ -46,11 +46,11 @@ public class ZombieGame {
 			name = scanPlayerInput.nextLine();
 			if (name.length() == 0) {
 				name = "Player " + (i + 1);
-			} 
+			}
 			players[i] = new ZombiePlayer(name);
 		}
 	}
-	
+
 	public void playerTurn(ZombiePlayer currentPlayer) {
 		ZombieCup cup = new ZombieCup();
 		ArrayList<ZombieDie> diceSetAside = new ArrayList<ZombieDie>();
@@ -86,7 +86,7 @@ public class ZombieGame {
 				} else if (roll[i].getDieSymbol() == 2) {
 					fs += 1;
 					symbol = "footsteps";
-					for(int j = 0; j < 3; j++) {
+					for (int j = 0; j < 3; j++) {
 						if (diceHeld[j] == null) {
 							diceHeld[j] = roll[i];
 							j = 3;
@@ -127,7 +127,8 @@ public class ZombieGame {
 					if (currentPlayer.getBrainsEaten() >= 13) {
 						currentPlayer.setWinStatus(true);
 					}
-				} if (rollAgain.equalsIgnoreCase("y")) {
+				}
+				if (rollAgain.equalsIgnoreCase("y")) {
 					for (int i = 0; i < cup.getNumOfFootsteps(); i++) {
 						diceHeld[i].setDieSymbol(cup.determineSymbol());
 					}
@@ -137,22 +138,22 @@ public class ZombieGame {
 		}
 		System.out.println("\n" + "Brains eaten: " + currentPlayer.getBrainsEaten());
 	}
-	
+
 	public void winEvaluation(ZombiePlayer currentPlayer) {
 		if (currentPlayer.getBrainsEaten() >= 13) {
 			String name = currentPlayer.getPlayerName();
 			System.out.println(name + " has reached 13 brains! Take your final turn.");
 			winner = true;
 			currentPlayer.setWinStatus(winner);
-		}	
+		}
 	}
-	
+
 	public void declareWinner(ZombiePlayer[] players) {
 		int brains = 0;
 		ZombiePlayer theyWon = null;
 		for (int i = 0; i < players.length; i++) {
 			if (players[i].getWinStatus() == true) {
-				if (players[i].getBrainsEaten() > brains){
+				if (players[i].getBrainsEaten() > brains) {
 					brains = players[i].getBrainsEaten();
 					theyWon = players[i];
 				}
