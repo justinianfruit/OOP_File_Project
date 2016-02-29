@@ -47,6 +47,7 @@ public class YahtzeeTurn implements ControlListener {
 	@Override
 	public void lowScores(int i) {
 		yg.scoreNum[i].setText(Integer.toString(numCount(i + 1) * (i + 1)));
+		player.setLowScore(i, (numCount(i + 1) * (i + 1)));
 		player.setSum(player.getSum() + (numCount(i + 1) * (i + 1)));
 		total += (numCount(i + 1) * (i + 1));
 		for (int j = 0; j < 5; j++) {

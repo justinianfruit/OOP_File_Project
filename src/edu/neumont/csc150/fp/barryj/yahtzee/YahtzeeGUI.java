@@ -6,12 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Random;
 
 import javax.swing.*;
 
 public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener {
 	ControlListener cl;
+	YahtzeePlayer p;
 
 	JFrame yahtzeeWindow;
 	JPanel backgroundPanel;
@@ -44,6 +44,7 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 
 	public YahtzeeGUI(ControlListener listener, YahtzeePlayer p) {
 		cl = listener;
+		this.p = p;
 
 		yahtzeeWindow = new JFrame();
 		backgroundPanel = new JPanel(new GridLayout(1, 3));
@@ -64,7 +65,7 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 
 		picHolders = new JLabel[5];
 
-		playerNum = new JLabel("Name");
+		playerNum = new JLabel("Player " + p.getNumber());
 		scoreNum = new JLabel[16];
 		scoreLbl = new JLabel[16];
 
@@ -74,7 +75,12 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 
 		for (int i = 0; i < 16; i++) {
 			scoreLbl[i] = new JLabel(labels[i]);
-			scoreNum[i] = new JLabel("");
+			if (p.playerVals[i] != null) {
+				scoreNum[i] = new JLabel("");
+			} else {
+				scoreNum[i] = new JLabel("" + p.playerVals[i]);
+				scoreLbl[i].setForeground(click);
+			}
 			eastPanel.add(scoreLbl[i]);
 			eastPanel.add(scoreNum[i]);
 			scoreLbl[i].addMouseListener(this);
@@ -86,16 +92,9 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 			picHolders[i].addMouseListener(this);
 		}
 
-		for (int i = 0; i < 16; i++) {
-			if (i == 6) {
-				scoreLbl[i].setForeground(sbt);
-			} else if (i == 7) {
-				scoreLbl[i].setForeground(sbt);
-			} else if (i == 15) {
-				scoreLbl[i].setForeground(sbt);
-			}
-
-		}
+		scoreLbl[6].setForeground(sbt);
+		scoreLbl[7].setForeground(sbt);
+		scoreLbl[15].setForeground(sbt);
 
 		roll.addActionListener(this);
 		newGame.addActionListener(this);
@@ -194,7 +193,7 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 		}
 
 		if (e.getSource() == scoreLbl[14]) {
-
+			cl.scoreYahtzee();
 			rollLeft.setText((3 - cl.returnRollsUsed()) + " roll(s) left");
 			scoreLbl[14].removeMouseListener(this);
 		}
