@@ -11,10 +11,10 @@ public class YahtzeeGame {
 		for (int i = 0; i < 2; i++) {
 			players[i] = new YahtzeePlayer(i + 1);
 		}
-		for (int i = 0; i < 13; i++) {
+		//for (int i = 0; i < 13; i++) {
 			p1 = new YahtzeeTurn(players[0]);
 			p2 = new YahtzeeTurn(players[1]);
-		}
+		//}
 		winner = winEval(players);
 	}
 	

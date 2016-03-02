@@ -3,10 +3,19 @@ package edu.neumont.csc150.fp.barryj.yahtzee;
 public class YahtzeePlayer {
 	int number;
 	Integer[] playerVals;
+	boolean takingTurn;
 	
 	public YahtzeePlayer(int i) {
 		number = i;
 		playerVals = new Integer[16];
+		takingTurn = true;
+	}
+
+	public boolean isTakingTurn() {
+		return takingTurn;
+	}
+	public void setTakingTurn(boolean takingTurn) {
+		this.takingTurn = takingTurn;
 	}
 
 	public int getNumber() {

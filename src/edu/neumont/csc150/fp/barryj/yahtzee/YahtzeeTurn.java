@@ -17,8 +17,10 @@ public class YahtzeeTurn implements ControlListener {
 		total = 0;
 		player = p;
 		yg = new YahtzeeGUI(this, p);
+		while (player.isTakingTurn()) {
 		dieHeld = new YahtzeeDie[] { new YahtzeeDie(yg), new YahtzeeDie(yg), new YahtzeeDie(yg), new YahtzeeDie(yg),
 				new YahtzeeDie(yg) };
+		}
 	}
 	
 	@Override
@@ -66,6 +68,7 @@ public class YahtzeeTurn implements ControlListener {
 		}
 		yg.scoreNum[15].setText(Integer.toString(total));
 		rollCount = 0;
+		player.setTakingTurn(false);
 	}
 
 	@Override
@@ -89,6 +92,7 @@ public class YahtzeeTurn implements ControlListener {
 		rollCount = 0;
 		total += three;
 		yg.scoreNum[15].setText(Integer.toString(total));
+		player.setTakingTurn(false);
 	}
 
 	@Override
@@ -112,6 +116,7 @@ public class YahtzeeTurn implements ControlListener {
 		rollCount = 0;
 		total += four;
 		yg.scoreNum[15].setText(Integer.toString(total));
+		player.setTakingTurn(false);
 	}
 
 	@Override
@@ -141,6 +146,7 @@ public class YahtzeeTurn implements ControlListener {
 				yg.updateUI(j, dieHeld[j]);
 			}
 		}
+		player.setTakingTurn(false);
 	}
 
 	@Override
@@ -173,6 +179,7 @@ public class YahtzeeTurn implements ControlListener {
 		yg.scoreNum[11].setText(Integer.toString(smallS));
 		yg.scoreNum[15].setText(Integer.toString(total));
 		rollCount = 0;
+		player.setTakingTurn(false);
 	}
 
 	@Override
@@ -205,6 +212,7 @@ public class YahtzeeTurn implements ControlListener {
 		yg.scoreNum[12].setText(Integer.toString(largeS));
 		yg.scoreNum[15].setText(Integer.toString(total));
 		rollCount = 0;
+		player.setTakingTurn(false);
 	}
 
 	@Override
@@ -226,6 +234,7 @@ public class YahtzeeTurn implements ControlListener {
 				yg.updateUI(j, dieHeld[j]);
 			}
 		}
+		player.setTakingTurn(false);
 	}
 
 	@Override
@@ -249,6 +258,7 @@ public class YahtzeeTurn implements ControlListener {
 		rollCount = 0;
 		total += five;
 		yg.scoreNum[15].setText(Integer.toString(total));
+		player.setTakingTurn(false);
 	}
 
 	@Override

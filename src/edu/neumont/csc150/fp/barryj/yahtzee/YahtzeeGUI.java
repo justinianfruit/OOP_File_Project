@@ -75,15 +75,16 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 
 		for (int i = 0; i < 16; i++) {
 			scoreLbl[i] = new JLabel(labels[i]);
-			if (p.playerVals[i] != null) {
+			scoreLbl[i].addMouseListener(this);
+			if (p.playerVals[i] == null) {
 				scoreNum[i] = new JLabel("");
 			} else {
 				scoreNum[i] = new JLabel("" + p.playerVals[i]);
 				scoreLbl[i].setForeground(click);
+				scoreLbl[i].removeMouseListener(this);
 			}
 			eastPanel.add(scoreLbl[i]);
 			eastPanel.add(scoreNum[i]);
-			scoreLbl[i].addMouseListener(this);
 		}
 
 		for (int i = 0; i < 5; i++) {
@@ -136,11 +137,7 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		for (int i = 0; i < 16; i++) {
-			if (e.getSource() == scoreLbl[i]) {
-				scoreLbl[i].setForeground(click);
-			}
-		}
+		rollLeft.setText((3 - cl.returnRollsUsed()) + " roll(s) left");
 
 		for (int i = 0; i < 5; i++) {
 			if (e.getSource() == picHolders[i]) {
@@ -151,51 +148,35 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 		for (int i = 0; i < 6; i++) {
 			if (e.getSource() == scoreLbl[i]) {
 				cl.lowScores(i);
-				rollLeft.setText((3 - cl.returnRollsUsed()) + " roll(s) left");
-				scoreLbl[i].removeMouseListener(this);
 			}
 		}
 
 		if (e.getSource() == scoreLbl[8]) {
 			cl.scoreThrees();
-			rollLeft.setText((3 - cl.returnRollsUsed()) + " roll(s) left");
-			scoreLbl[8].removeMouseListener(this);
 		}
 
 		if (e.getSource() == scoreLbl[9]) {
 			cl.scoreFours();
-			rollLeft.setText((3 - cl.returnRollsUsed()) + " roll(s) left");
-			scoreLbl[9].removeMouseListener(this);
 		}
 
 		if (e.getSource() == scoreLbl[10]) {
 			cl.scoreFullH();
-			rollLeft.setText((3 - cl.returnRollsUsed()) + " roll(s) left");
-			scoreLbl[10].removeMouseListener(this);
 		}
 
 		if (e.getSource() == scoreLbl[11]) {
 			cl.scoreSmallS();
-			rollLeft.setText((3 - cl.returnRollsUsed()) + " roll(s) left");
-			scoreLbl[11].removeMouseListener(this);
 		}
 
 		if (e.getSource() == scoreLbl[12]) {
 			cl.scoreLargeS();
-			rollLeft.setText((3 - cl.returnRollsUsed()) + " roll(s) left");
-			scoreLbl[12].removeMouseListener(this);
 		}
 
 		if (e.getSource() == scoreLbl[13]) {
 			cl.scoreChance();
-			rollLeft.setText((3 - cl.returnRollsUsed()) + " roll(s) left");
-			scoreLbl[13].removeMouseListener(this);
 		}
 
 		if (e.getSource() == scoreLbl[14]) {
 			cl.scoreYahtzee();
-			rollLeft.setText((3 - cl.returnRollsUsed()) + " roll(s) left");
-			scoreLbl[14].removeMouseListener(this);
 		}
 	}
 
@@ -220,7 +201,6 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 	@Override
 	public void mousePressed(MouseEvent e) {
 	}
-
 	@Override
 	public void mouseReleased(MouseEvent e) {
 	}
