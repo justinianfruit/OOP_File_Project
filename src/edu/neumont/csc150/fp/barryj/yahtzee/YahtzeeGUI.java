@@ -11,7 +11,6 @@ import javax.swing.*;
 
 public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener {
 	ControlListener cl;
-	YahtzeePlayer p;
 
 	JFrame yahtzeeWindow;
 	JPanel backgroundPanel;
@@ -41,11 +40,10 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 	Color over;
 	Color click;
 	Color sbt;
+	Color player1;
+	Color player2;
 
-	public YahtzeeGUI(ControlListener listener, YahtzeePlayer p) {
-		cl = listener;
-		this.p = p;
-
+	public YahtzeeGUI() {
 		yahtzeeWindow = new JFrame();
 		backgroundPanel = new JPanel(new GridLayout(1, 3));
 		westPanel = new JPanel(new GridLayout(5, 1));
@@ -65,24 +63,20 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 
 		picHolders = new JLabel[5];
 
-		playerNum = new JLabel("Player " + p.getNumber());
+		playerNum = new JLabel();
 		scoreNum = new JLabel[16];
 		scoreLbl = new JLabel[16];
 
 		over = new Color(0, 157, 255);
-		click = new Color(0, 255, 127);
+		click = new Color(49,0,166);
 		sbt = new Color(149, 26, 162);
+		player1 = new Color(199,185,197);
+		player2 = new Color(197,224,220);
 
 		for (int i = 0; i < 16; i++) {
 			scoreLbl[i] = new JLabel(labels[i]);
 			scoreLbl[i].addMouseListener(this);
-			if (p.playerVals[i] == null) {
-				scoreNum[i] = new JLabel("");
-			} else {
-				scoreNum[i] = new JLabel("" + p.playerVals[i]);
-				scoreLbl[i].setForeground(click);
-				scoreLbl[i].removeMouseListener(this);
-			}
+			scoreNum[i] = new JLabel();
 			eastPanel.add(scoreLbl[i]);
 			eastPanel.add(scoreNum[i]);
 		}
@@ -103,7 +97,7 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 
 		northWestPanel.add(playerNum);
 		buttonPanel1.add(roll);
-		buttonPanel2.add(newGame);
+		//buttonPanel2.add(newGame);
 		buttonPanel3.add(exit);
 		labelPanel.add(rollLeft);
 
@@ -119,6 +113,49 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 		yahtzeeWindow.setVisible(true);
 		yahtzeeWindow.setSize(700, 550);
 		yahtzeeWindow.setLocationRelativeTo(null);
+	}
+	
+	public void closeWindow() {
+		yahtzeeWindow.dispose();
+	}
+	
+	public void initialize(YahtzeePlayer p, YahtzeeTurn yt) {
+		cl = yt;
+		playerNum.setText("Player " + p.getNumber());
+		for (int i = 0; i < 16; i++) {
+			if (p.playerVals[i] == null) {
+				scoreNum[i].setText("");
+				scoreLbl[i].setForeground(Color.DARK_GRAY);
+			} else {
+				scoreNum[i].setText("" + p.playerVals[i]);
+				scoreLbl[i].setForeground(Color.white);
+			}
+		}
+		rollLeft.setText((3 - cl.returnRollsUsed()) + " roll(s) left");
+		scoreLbl[6].setForeground(sbt);
+		scoreLbl[7].setForeground(sbt);
+		scoreLbl[15].setForeground(sbt);
+		if (p.getNumber() == 1) {
+			backgroundPanel.setBackground(player1);
+			northWestPanel.setBackground(player1);
+			westPanel.setBackground(player1);
+			centerPanel.setBackground(player1);
+			eastPanel.setBackground(player1);
+			buttonPanel1.setBackground(player1);
+			buttonPanel2.setBackground(player1);
+			buttonPanel3.setBackground(player1);
+			labelPanel.setBackground(player1);
+		} else {
+			backgroundPanel.setBackground(player2);
+			northWestPanel.setBackground(player2);
+			westPanel.setBackground(player2);
+			centerPanel.setBackground(player2);
+			eastPanel.setBackground(player2);
+			buttonPanel1.setBackground(player2);
+			buttonPanel2.setBackground(player2);
+			buttonPanel3.setBackground(player2);
+			labelPanel.setBackground(player2);
+		}
 	}
 
 	@Override
@@ -183,7 +220,7 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		for (int i = 0; i < 15; i++) {
-			if (e.getSource() == scoreLbl[i] && scoreLbl[i].getForeground() != click && i != 6 && i != 7) {
+			if (e.getSource() == scoreLbl[i] && scoreLbl[i].getForeground() != Color.white && i != 6 && i != 7) {
 				scoreLbl[i].setForeground(over);
 			}
 		}
@@ -192,7 +229,7 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 	@Override
 	public void mouseExited(MouseEvent e) {
 		for (int i = 0; i < 15; i++) {
-			if (e.getSource() == scoreLbl[i] && scoreLbl[i].getForeground() != click && i != 6 && i != 7) {
+			if (e.getSource() == scoreLbl[i] && scoreLbl[i].getForeground() != Color.white && i != 6 && i != 7) {
 				scoreLbl[i].setForeground(Color.DARK_GRAY);
 			}
 		}

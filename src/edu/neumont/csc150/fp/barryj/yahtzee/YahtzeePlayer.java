@@ -8,7 +8,10 @@ public class YahtzeePlayer {
 	public YahtzeePlayer(int i) {
 		number = i;
 		playerVals = new Integer[16];
-		takingTurn = true;
+		playerVals[6] = 0;
+		playerVals[7] = 0;
+		playerVals[15] = 0;
+		takingTurn = false;
 	}
 
 	public boolean isTakingTurn() {

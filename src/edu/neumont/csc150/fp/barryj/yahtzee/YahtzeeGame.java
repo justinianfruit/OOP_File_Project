@@ -1,24 +1,40 @@
 package edu.neumont.csc150.fp.barryj.yahtzee;
 
+import javax.swing.JOptionPane;
+
 public class YahtzeeGame {
 	YahtzeePlayer[] players;
 	YahtzeePlayer winner;
-	YahtzeeTurn p1;
-	YahtzeeTurn p2;
+	YahtzeeTurn pt;
+	YahtzeeGUI yg;
+	int counter;
 
 	public YahtzeeGame() {
 		players = new YahtzeePlayer[2];
+		counter = 0;
 		for (int i = 0; i < 2; i++) {
 			players[i] = new YahtzeePlayer(i + 1);
 		}
-		//for (int i = 0; i < 13; i++) {
-			p1 = new YahtzeeTurn(players[0]);
-			p2 = new YahtzeeTurn(players[1]);
-		//}
-		winner = winEval(players);
+		yg = new YahtzeeGUI();
+		switchTurn();
+		if (counter >= 24) {
+			yg.closeWindow();
+			winEval(players);
+		}
 	}
-	
-	public YahtzeePlayer winEval(YahtzeePlayer[] ps) {
+
+	public void switchTurn() {
+		counter++;
+		if (counter % 2 == 0) {
+			players[1].setTakingTurn(true);
+			pt = new YahtzeeTurn(this, players[1], yg);
+		} else {
+			players[0].setTakingTurn(true);
+			pt = new YahtzeeTurn(this, players[0], yg);
+		}
+	}
+
+	public void winEval(YahtzeePlayer[] ps) {
 		int totalOne = ps[0].getTotal();
 		int totalTwo = ps[1].getTotal();
 		YahtzeePlayer toReturn;
@@ -27,7 +43,8 @@ public class YahtzeeGame {
 		} else {
 			toReturn = ps[1];
 		}
-		return toReturn;
+		JOptionPane.showMessageDialog(null, "Player " + toReturn.getNumber() + " wins!", "Alert",
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 
 }
