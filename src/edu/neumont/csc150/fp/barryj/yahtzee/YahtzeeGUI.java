@@ -20,12 +20,10 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 	JPanel eastPanel;
 
 	JPanel buttonPanel1;
-	JPanel buttonPanel2;
 	JPanel buttonPanel3;
 	JPanel labelPanel;
 
 	JButton roll;
-	JButton newGame;
 	JButton exit;
 	JLabel rollLeft;
 
@@ -38,7 +36,6 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 			"Four of a kind", "Full House", "Small Straight", "Large Straight", "Chance", "YAHTZEE", "Total" };
 
 	Color over;
-	Color click;
 	Color sbt;
 	Color player1;
 	Color player2;
@@ -52,12 +49,10 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 		northWestPanel = new JPanel();
 
 		buttonPanel1 = new JPanel();
-		buttonPanel2 = new JPanel();
 		buttonPanel3 = new JPanel();
 		labelPanel = new JPanel();
 
 		roll = new JButton("Roll");
-		newGame = new JButton("New Game");
 		exit = new JButton("Exit");
 		rollLeft = new JLabel("3 rolls left");
 
@@ -68,7 +63,6 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 		scoreLbl = new JLabel[16];
 
 		over = new Color(0, 157, 255);
-		click = new Color(49,0,166);
 		sbt = new Color(149, 26, 162);
 		player1 = new Color(199,185,197);
 		player2 = new Color(197,224,220);
@@ -92,18 +86,15 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 		scoreLbl[15].setForeground(sbt);
 
 		roll.addActionListener(this);
-		newGame.addActionListener(this);
 		exit.addActionListener(this);
 
 		northWestPanel.add(playerNum);
 		buttonPanel1.add(roll);
-		//buttonPanel2.add(newGame);
 		buttonPanel3.add(exit);
 		labelPanel.add(rollLeft);
 
 		westPanel.add(northWestPanel);
 		westPanel.add(buttonPanel1);
-		westPanel.add(buttonPanel2);
 		westPanel.add(buttonPanel3);
 		westPanel.add(labelPanel);
 		backgroundPanel.add(westPanel);
@@ -142,7 +133,6 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 			centerPanel.setBackground(player1);
 			eastPanel.setBackground(player1);
 			buttonPanel1.setBackground(player1);
-			buttonPanel2.setBackground(player1);
 			buttonPanel3.setBackground(player1);
 			labelPanel.setBackground(player1);
 		} else {
@@ -152,7 +142,6 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 			centerPanel.setBackground(player2);
 			eastPanel.setBackground(player2);
 			buttonPanel1.setBackground(player2);
-			buttonPanel2.setBackground(player2);
 			buttonPanel3.setBackground(player2);
 			labelPanel.setBackground(player2);
 		}
@@ -187,31 +176,24 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 				cl.lowScores(i);
 			}
 		}
-
 		if (e.getSource() == scoreLbl[8]) {
 			cl.scoreThrees();
 		}
-
 		if (e.getSource() == scoreLbl[9]) {
 			cl.scoreFours();
 		}
-
 		if (e.getSource() == scoreLbl[10]) {
 			cl.scoreFullH();
 		}
-
 		if (e.getSource() == scoreLbl[11]) {
 			cl.scoreSmallS();
 		}
-
 		if (e.getSource() == scoreLbl[12]) {
 			cl.scoreLargeS();
 		}
-
 		if (e.getSource() == scoreLbl[13]) {
 			cl.scoreChance();
 		}
-
 		if (e.getSource() == scoreLbl[14]) {
 			cl.scoreYahtzee();
 		}
@@ -247,30 +229,6 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 		if (e.getSource() == roll) {
 			cl.roll();
 			rollLeft.setText((3 - cl.returnRollsUsed()) + " roll(s) left");
-		}
-
-		if (e.getSource() == newGame) {
-			cl.resetGame();
-			rollLeft.setText((3 - cl.returnRollsUsed()) + " roll(s) left");
-			scoreNum[15].setText("0");
-
-			for (int i = 0; i < 15; i++) {
-				scoreLbl[i].setForeground(Color.DARK_GRAY);
-				if (i == 6) {
-					scoreLbl[i].setForeground(sbt);
-				} else if (i == 7) {
-					scoreLbl[i].setForeground(sbt);
-				}
-			}
-
-			for (int i = 0; i < 15; i++) {
-				scoreNum[i].setText("0");
-			}
-
-			for (int i = 0; i < 16; i++) {
-				scoreLbl[i].removeMouseListener(this);
-				scoreLbl[i].addMouseListener(this);
-			}
 		}
 
 		if (e.getSource() == exit) {

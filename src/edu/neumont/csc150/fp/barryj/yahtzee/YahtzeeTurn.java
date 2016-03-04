@@ -6,13 +6,13 @@ import javax.swing.ImageIcon;
 public class YahtzeeTurn implements ControlListener {
 	int rollCount;
 	YahtzeeDie[] dieHeld;
-	YahtzeeGame c;
+	Turner turn;
 	YahtzeeGUI yg;
 	YahtzeePlayer player;
 
-	public YahtzeeTurn(YahtzeeGame control, YahtzeePlayer p, YahtzeeGUI newUI) {
+	public YahtzeeTurn(Turner control, YahtzeePlayer p, YahtzeeGUI newUI) {
 		rollCount = 0;
-		c = control;
+		turn = control;
 		player = p;
 		yg = newUI;
 		dieHeld = new YahtzeeDie[] { new YahtzeeDie(yg), new YahtzeeDie(yg), new YahtzeeDie(yg), new YahtzeeDie(yg),
@@ -34,6 +34,7 @@ public class YahtzeeTurn implements ControlListener {
 	@Override
 	public void roll() {
 		if (rollCount < 3) {
+			rollCount++;
 			Random gen = new Random();
 			for (int i = 0; i < 5; i++) {
 				if (!dieHeld[i].isHeld()) {
@@ -44,7 +45,6 @@ public class YahtzeeTurn implements ControlListener {
 					yg.updateUI(i, dieHeld[i]);
 				}
 			}
-			rollCount++;
 		}
 	}
 
@@ -54,15 +54,6 @@ public class YahtzeeTurn implements ControlListener {
 		player.setLowScore(i, (numCount(i + 1) * (i + 1)));
 		player.setSum(player.getSum() + (numCount(i + 1) * (i + 1)));
 		player.setTotal(player.getTotal() + (numCount(i + 1) * (i + 1)));
-		for (int j = 0; j < 5; j++) {
-			if (dieHeld[j].isHeld()) {
-				dieHeld[j].flipBoolean();
-				dieHeld[j].setDieFace(
-						new ImageIcon("/edu/neumont/csc150/fp/barryj/images/" + dieHeld[j].getDieSymbol() + ".jpg"));
-				yg.updateDie(dieHeld[j]);
-				yg.updateUI(j, dieHeld[j]);
-			}
-		}
 		yg.scoreNum[6].setText(Integer.toString(player.getSum()));
 		if (player.getSum() > 63) {
 			yg.scoreNum[7].setText(Integer.toString(35));
@@ -71,7 +62,7 @@ public class YahtzeeTurn implements ControlListener {
 		yg.scoreNum[15].setText(Integer.toString(player.getTotal()));
 		rollCount = 0;
 		player.setTakingTurn(false);
-		c.switchTurn();
+		turn.switchTurn();
 	}
 
 	@Override
@@ -83,21 +74,12 @@ public class YahtzeeTurn implements ControlListener {
 			}
 		}
 		player.setToaK(three);
-		for (int j = 0; j < 5; j++) {
-			if (dieHeld[j].isHeld()) {
-				dieHeld[j].flipBoolean();
-				dieHeld[j].setDieFace(
-						new ImageIcon("/edu/neumont/csc150/fp/barryj/images/" + dieHeld[j].getDieSymbol() + ".jpg"));
-				yg.updateDie(dieHeld[j]);
-				yg.updateUI(j, dieHeld[j]);
-			}
-		}
 		yg.scoreNum[8].setText(Integer.toString(player.getToaK()));
-		rollCount = 0;
 		player.setTotal(player.getTotal() + player.getToaK());
 		yg.scoreNum[15].setText(Integer.toString(player.getTotal()));
+		rollCount = 0;
 		player.setTakingTurn(false);
-		c.switchTurn();
+		turn.switchTurn();
 	}
 
 	@Override
@@ -109,21 +91,12 @@ public class YahtzeeTurn implements ControlListener {
 			}
 		}
 		player.setFoaK(four);
-		for (int j = 0; j < 5; j++) {
-			if (dieHeld[j].isHeld()) {
-				dieHeld[j].flipBoolean();
-				dieHeld[j].setDieFace(
-						new ImageIcon("/edu/neumont/csc150/fp/barryj/images/" + dieHeld[j].getDieSymbol() + ".jpg"));
-				yg.updateDie(dieHeld[j]);
-				yg.updateUI(j, dieHeld[j]);
-			}
-		}
 		yg.scoreNum[9].setText(Integer.toString(player.getFoaK()));
-		rollCount = 0;
 		player.setTotal(player.getTotal() + player.getFoaK());
 		yg.scoreNum[15].setText(Integer.toString(player.getTotal()));
+		rollCount = 0;
 		player.setTakingTurn(false);
-		c.switchTurn();
+		turn.switchTurn();
 	}
 
 	@Override
@@ -138,24 +111,15 @@ public class YahtzeeTurn implements ControlListener {
 		for (int i = 0; i < 5; i++) {
 			if (numCount(dieHeld[i].getDieSymbol()) == 2 && threeOfAKind) {
 				ref = 25;
-				yg.scoreNum[10].setText(Integer.toString(player.getFullHouse()));
 			}
 		}
 		player.setFullHouse(ref);
+		yg.scoreNum[10].setText(Integer.toString(player.getFullHouse()));
 		player.setTotal(player.getTotal() + player.getFullHouse());
 		yg.scoreNum[15].setText(Integer.toString(player.getTotal()));
 		rollCount = 0;
-		for (int j = 0; j < 5; j++) {
-			if (dieHeld[j].isHeld()) {
-				dieHeld[j].flipBoolean();
-				dieHeld[j].setDieFace(
-						new ImageIcon("/edu/neumont/csc150/fp/barryj/images/" + dieHeld[j].getDieSymbol() + ".jpg"));
-				yg.updateDie(dieHeld[j]);
-				yg.updateUI(j, dieHeld[j]);
-			}
-		}
 		player.setTakingTurn(false);
-		c.switchTurn();
+		turn.switchTurn();
 	}
 
 	@Override
@@ -177,20 +141,11 @@ public class YahtzeeTurn implements ControlListener {
 		}
 		player.setSmallS(smallS);
 		player.setTotal(player.getTotal() + player.getSmallS());
-		for (int j = 0; j < 5; j++) {
-			if (dieHeld[j].isHeld()) {
-				dieHeld[j].flipBoolean();
-				dieHeld[j].setDieFace(
-						new ImageIcon("/edu/neumont/csc150/fp/barryj/images/" + dieHeld[j].getDieSymbol() + ".jpg"));
-				yg.updateDie(dieHeld[j]);
-				yg.updateUI(j, dieHeld[j]);
-			}
-		}
 		yg.scoreNum[11].setText(Integer.toString(player.getSmallS()));
 		yg.scoreNum[15].setText(Integer.toString(player.getTotal()));
 		rollCount = 0;
 		player.setTakingTurn(false);
-		c.switchTurn();
+		turn.switchTurn();
 	}
 
 	@Override
@@ -212,20 +167,11 @@ public class YahtzeeTurn implements ControlListener {
 		}
 		player.setLargeS(largeS);
 		player.setTotal(player.getTotal() + player.getLargeS());
-		for (int j = 0; j < 5; j++) {
-			if (dieHeld[j].isHeld()) {
-				dieHeld[j].flipBoolean();
-				dieHeld[j].setDieFace(
-						new ImageIcon("/edu/neumont/csc150/fp/barryj/images/" + dieHeld[j].getDieSymbol() + ".jpg"));
-				yg.updateDie(dieHeld[j]);
-				yg.updateUI(j, dieHeld[j]);
-			}
-		}
 		yg.scoreNum[12].setText(Integer.toString(player.getLargeS()));
 		yg.scoreNum[15].setText(Integer.toString(player.getTotal()));
 		rollCount = 0;
 		player.setTakingTurn(false);
-		c.switchTurn();
+		turn.switchTurn();
 	}
 
 	@Override
@@ -239,17 +185,8 @@ public class YahtzeeTurn implements ControlListener {
 		player.setTotal(player.getTotal() + player.getChance());
 		yg.scoreNum[15].setText(Integer.toString(player.getTotal()));
 		rollCount = 0;
-		for (int j = 0; j < 5; j++) {
-			if (dieHeld[j].isHeld()) {
-				dieHeld[j].flipBoolean();
-				dieHeld[j].setDieFace(
-						new ImageIcon("/edu/neumont/csc150/fp/barryj/images/" + dieHeld[j].getDieSymbol() + ".jpg"));
-				yg.updateDie(dieHeld[j]);
-				yg.updateUI(j, dieHeld[j]);
-			}
-		}
 		player.setTakingTurn(false);
-		c.switchTurn();
+		turn.switchTurn();
 	}
 
 	@Override
@@ -260,37 +197,14 @@ public class YahtzeeTurn implements ControlListener {
 				five = 50;
 			}
 		}
-		for (int j = 0; j < 5; j++) {
-			if (dieHeld[j].isHeld()) {
-				dieHeld[j].flipBoolean();
-				dieHeld[j].setDieFace(
-						new ImageIcon("/edu/neumont/csc150/fp/barryj/images/" + dieHeld[j].getDieSymbol() + ".jpg"));
-				yg.updateDie(dieHeld[j]);
-				yg.updateUI(j, dieHeld[j]);
-			}
-		}
 		player.setYahtzee(five);
 		player.setTotal(player.getTotal() + player.getYahtzee());
 		yg.scoreNum[14].setText(Integer.toString(player.getYahtzee()));
-		rollCount = 0;
 		player.setTotal(player.getTotal() + player.getYahtzee());
 		yg.scoreNum[15].setText(Integer.toString(player.getTotal()));
-		player.setTakingTurn(false);
-		c.switchTurn();
-	}
-
-	@Override
-	public void resetGame() {
 		rollCount = 0;
-		for (int i = 0; i < 5; i++) {
-			dieHeld[i].setDieSymbol(0);
-			dieHeld[i].setDieFace(new ImageIcon(""));
-			if (dieHeld[i].isHeld()) {
-				dieHeld[i].flipBoolean();
-			}
-			yg.updateDie(dieHeld[i]);
-			yg.updateUI(i, dieHeld[i]);
-		}
+		player.setTakingTurn(false);
+		turn.switchTurn();
 	}
 
 	@Override

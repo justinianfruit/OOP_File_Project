@@ -2,7 +2,7 @@ package edu.neumont.csc150.fp.barryj.yahtzee;
 
 import javax.swing.JOptionPane;
 
-public class YahtzeeGame {
+public class YahtzeeGame implements Turner {
 	YahtzeePlayer[] players;
 	YahtzeePlayer winner;
 	YahtzeeTurn pt;
@@ -17,12 +17,9 @@ public class YahtzeeGame {
 		}
 		yg = new YahtzeeGUI();
 		switchTurn();
-		if (counter >= 24) {
-			yg.closeWindow();
-			winEval(players);
-		}
 	}
 
+	@Override
 	public void switchTurn() {
 		counter++;
 		if (counter % 2 == 0) {
@@ -31,6 +28,10 @@ public class YahtzeeGame {
 		} else {
 			players[0].setTakingTurn(true);
 			pt = new YahtzeeTurn(this, players[0], yg);
+		}
+		if (counter > 26) {
+			yg.closeWindow();
+			winEval(players);
 		}
 	}
 

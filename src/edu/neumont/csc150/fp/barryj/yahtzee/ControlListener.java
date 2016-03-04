@@ -22,8 +22,6 @@ public interface ControlListener {
 	
 	public void scoreYahtzee();
 	
-	public void resetGame();
-	
 	public int numCount(int num);
 	
 	public int returnRollsUsed();
