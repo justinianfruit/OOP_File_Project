@@ -3,6 +3,8 @@ package edu.neumont.csc150.fp.barryj.yahtzee;
 import java.util.Random;
 import javax.swing.ImageIcon;
 
+import edu.neumont.csc150.fp.barryj.Turner;
+
 public class YahtzeeTurn implements ControlListener {
 	int rollCount;
 	YahtzeeDie[] dieHeld;

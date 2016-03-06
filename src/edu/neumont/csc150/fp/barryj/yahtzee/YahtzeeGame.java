@@ -2,6 +2,8 @@ package edu.neumont.csc150.fp.barryj.yahtzee;
 
 import javax.swing.JOptionPane;
 
+import edu.neumont.csc150.fp.barryj.Turner;
+
 public class YahtzeeGame implements Turner {
 	YahtzeePlayer[] players;
 	YahtzeePlayer winner;

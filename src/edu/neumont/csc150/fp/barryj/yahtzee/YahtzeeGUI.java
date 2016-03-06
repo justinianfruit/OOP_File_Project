@@ -6,13 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.*;
+import edu.neumont.csc150.fp.barryj.ObjectListener;
 
 public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener {
 	ControlListener cl;
 
 	JFrame yahtzeeWindow;
+	ImageIcon frameIcon;
 	JPanel backgroundPanel;
 	JPanel northWestPanel;
 	JPanel westPanel;
@@ -41,7 +42,9 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 	Color player2;
 
 	public YahtzeeGUI() {
-		yahtzeeWindow = new JFrame();
+		yahtzeeWindow = new JFrame("Yahtzee");
+		frameIcon = new ImageIcon(this.getClass().getResource("/edu/neumont/csc150/fp/barryj/images/yahtzeeIcon.png"));
+		yahtzeeWindow.setIconImage(frameIcon.getImage());
 		backgroundPanel = new JPanel(new GridLayout(1, 3));
 		westPanel = new JPanel(new GridLayout(5, 1));
 		centerPanel = new JPanel(new GridLayout(5, 1));
@@ -64,8 +67,8 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 
 		over = new Color(0, 157, 255);
 		sbt = new Color(149, 26, 162);
-		player1 = new Color(199,185,197);
-		player2 = new Color(197,224,220);
+		player1 = new Color(199, 185, 197);
+		player2 = new Color(197, 224, 220);
 
 		for (int i = 0; i < 16; i++) {
 			scoreLbl[i] = new JLabel(labels[i]);
@@ -105,11 +108,11 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 		yahtzeeWindow.setSize(700, 550);
 		yahtzeeWindow.setLocationRelativeTo(null);
 	}
-	
+
 	public void closeWindow() {
 		yahtzeeWindow.dispose();
 	}
-	
+
 	public void initialize(YahtzeePlayer p, YahtzeeTurn yt) {
 		cl = yt;
 		playerNum.setText("Player " + p.getNumber());

@@ -9,10 +9,6 @@ public class ZombieGame {
 	boolean winner = false;
 	int numOfPlayers;
 
-	public static void main(String[] args) {
-		ZombieGame zombie = new ZombieGame();
-	}
-
 	public ZombieGame() {
 		playGame();
 	}

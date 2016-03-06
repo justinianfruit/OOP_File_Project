@@ -43,9 +43,7 @@ public class ZombiePlayer {
 	public int getBlastsTaken() {
 		return blastsTaken;
 	}
-	
-	//setBlastsTaken(0) for resetting
-	//ssetBlastsTaken(addBlasts(#)) for adding to count
+
 	public void setBlastsTaken(int blastsTaken) {
 		this.blastsTaken = blastsTaken;
 	}

@@ -1,4 +1,6 @@
-package edu.neumont.csc150.fp.barryj.yahtzee;
+package edu.neumont.csc150.fp.barryj;
+
+import edu.neumont.csc150.fp.barryj.yahtzee.YahtzeeDie;
 
 public interface ObjectListener {
 

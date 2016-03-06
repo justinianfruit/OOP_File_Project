@@ -14,7 +14,6 @@ public class ZombieCup {
 	private static ZombieDie[] insideCup = new ZombieDie[13];
 	ZombieDie[] diceRolled;
 	
-	
 	public ZombieCup() {
 		initializeCup();
 		rollDice(3);
