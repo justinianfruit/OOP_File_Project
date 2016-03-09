@@ -40,6 +40,8 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 	Color sbt;
 	Color player1;
 	Color player2;
+	Color player3;
+	Color player4;
 
 	public YahtzeeGUI() {
 		yahtzeeWindow = new JFrame("Yahtzee");
@@ -69,6 +71,8 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 		sbt = new Color(149, 26, 162);
 		player1 = new Color(199, 185, 197);
 		player2 = new Color(197, 224, 220);
+		player3 = new Color(172,241,130);
+		player4 = new Color(244,198,211);
 
 		for (int i = 0; i < 16; i++) {
 			scoreLbl[i] = new JLabel(labels[i]);
@@ -130,24 +134,25 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 		scoreLbl[7].setForeground(sbt);
 		scoreLbl[15].setForeground(sbt);
 		if (p.getNumber() == 1) {
-			backgroundPanel.setBackground(player1);
-			northWestPanel.setBackground(player1);
-			westPanel.setBackground(player1);
-			centerPanel.setBackground(player1);
-			eastPanel.setBackground(player1);
-			buttonPanel1.setBackground(player1);
-			buttonPanel3.setBackground(player1);
-			labelPanel.setBackground(player1);
+			changeColor(player1);
+		} else if (p.getNumber() == 2) {
+			changeColor(player2);
+		} else if (p.getNumber() == 3) {
+			changeColor(player3);
 		} else {
-			backgroundPanel.setBackground(player2);
-			northWestPanel.setBackground(player2);
-			westPanel.setBackground(player2);
-			centerPanel.setBackground(player2);
-			eastPanel.setBackground(player2);
-			buttonPanel1.setBackground(player2);
-			buttonPanel3.setBackground(player2);
-			labelPanel.setBackground(player2);
+			changeColor(player4);
 		}
+	}
+	
+	public void changeColor(Color background) {
+		backgroundPanel.setBackground(background);
+		northWestPanel.setBackground(background);
+		westPanel.setBackground(background);
+		centerPanel.setBackground(background);
+		eastPanel.setBackground(background);
+		buttonPanel1.setBackground(background);
+		buttonPanel3.setBackground(background);
+		labelPanel.setBackground(background);
 	}
 
 	@Override

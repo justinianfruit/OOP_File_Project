@@ -8,8 +8,8 @@ public class ZombieCup {
 	private int dieSymbol;
 	Random randNumGen = new Random();
 	private int[] greenSymbols = {1,1,1,2,2,3};
-	private int[] yellowSymbols = {1,1,2,2,3,3};
-	private int[] redSymbols = {1,2,2,3,3,3};
+	private int[] yellowSymbols = {4,4,5,5,6,6};
+	private int[] redSymbols = {7,8,8,9,9,9};
 	private int numOfFootsteps = 0;
 	private static ZombieDie[] insideCup = new ZombieDie[13];
 	ZombieDie[] diceRolled;
@@ -98,18 +98,6 @@ public class ZombieCup {
 				insideCup[i] = returnDie;
 			}
 		}
-	}
-
-	public String getDieColor() {
-		return dieColor;
-	}
-
-	public int getDieSymbol() {
-		return dieSymbol;
-	}
-
-	public void setDieSymbol(int dieSymbol) {
-		this.dieSymbol = dieSymbol;
 	}
 
 	public int getNumOfFootsteps() {

@@ -1,6 +1,7 @@
 package edu.neumont.csc150.fp.barryj;
 
 import edu.neumont.csc150.fp.barryj.yahtzee.YahtzeeGame;
+import edu.neumont.csc150.fp.barryj.zombie.ZombieGame;
 
 public class Main {
 
@@ -12,8 +13,8 @@ public class Main {
 		// } else if ("-crown".equals(args[0])) {
 		// CandAGUI cg = new CandAGUI();
 		// }
-		// ZombieGUI zg = new ZombieGUI();
-		YahtzeeGame yg = new YahtzeeGame();
+		ZombieGame zg = new ZombieGame();
+		//YahtzeeGame yg = new YahtzeeGame();
 	}
 
 }
