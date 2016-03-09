@@ -8,10 +8,6 @@ public class ZombiePlayer {
 	private int blastsTaken = 0;
 	private boolean winner = false;
 	
-	public ZombiePlayer() {
-		
-	}
-	
 	public ZombiePlayer(String enteredName) {
 		playerName = enteredName;
 	}

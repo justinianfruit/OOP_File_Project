@@ -7,6 +7,20 @@ public class ZombieTurn{
 	Scanner scanPlayerInput = new Scanner(System.in);
 	boolean winner = false;
 	
+	/**
+	 * 
+	 * @param currentPlayer
+	 * currentPlayer is an instance of the ZombiePlayer class, passed
+	 * 		in from the ZombieGame class which owns the collection
+	 * 		of ZombiePlayers.
+	 * This method keeps track of the currentPlayer's scores for their 
+	 * 		turn. Additionally, it stores dice that are held and prints
+	 * 		the roll outcome to the console. Finally, it evaluates if
+	 * 		the currentPlayer has taken too much damage to continue
+	 * 		with their turn. If currentPlayer ends their turn willingly,
+	 * 		this method adds the score collected for the turn to the
+	 * 		currentPlayer total score.
+	 */
 	public void playerTurn(ZombiePlayer currentPlayer) {
 		ZombieCup cup = new ZombieCup();
 		ArrayList<ZombieDie> diceSetAside = new ArrayList<ZombieDie>();
@@ -95,6 +109,18 @@ public class ZombieTurn{
 		System.out.println("\n" + "Brains eaten: " + currentPlayer.getBrainsEaten());
 	}
 
+	/**
+	 * 
+	 * @param currentPlayer
+	 * currentPlayer is an instance of the ZombiePlayer class, passed
+	 * 		in from the ZombieGame class which owns the collection
+	 * 		of ZombiePlayers.
+	 * This method evaluates the total score of currentPlayer in 
+	 * 		order to see if they have reached the base score for
+	 * 		a "winning status". If the condition is met, this method
+	 * 		sets the game boolean of winner to true and sets the 
+	 * 		currentPlayer's winStatus to true also. 
+	 */
 	public void winEvaluation(ZombiePlayer currentPlayer) {
 		if (currentPlayer.getBrainsEaten() >= 13) {
 			String name = currentPlayer.getPlayerName();
@@ -104,6 +130,15 @@ public class ZombieTurn{
 		}
 	}
 
+	/**
+	 * 
+	 * @param players
+	 * players is an array of ZombiePlayer instances that belongs
+	 * 		to the ZombieGame class and is passed in.
+	 * This method checks and compares the total scores of each
+	 * 		ZombiePlayer and evaluates which has the highest
+	 * 		score. It then prints this announcement. 
+	 */
 	public void declareWinner(ZombiePlayer[] players) {
 		int brains = 0;
 		ZombiePlayer theyWon = null;
