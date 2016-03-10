@@ -6,27 +6,13 @@ import edu.neumont.csc150.fp.barryj.Die;
 import edu.neumont.csc150.fp.barryj.ObjectListener;
 
 public class YahtzeeDie extends Die {
-	private boolean isHeld;
-	private ObjectListener ol;
 	private Random randGen = new Random();
 
 	public YahtzeeDie(ObjectListener listener) {
-		isHeld = false;
-		ol = listener;
+		setisHeld(false);
+		super.ol = listener;
 		setDieSymbol(randGen.nextInt(6) + 1);
 		changeImage("/edu/neumont/csc150/fp/barryj/images/" + getDieSymbol() + ".jpg");
 	}
 
-	public boolean isHeld() {
-		return isHeld;
-	}
-
-	public void setisHeld(boolean dieHeld) {
-		this.isHeld = dieHeld;
-	}
-
-	public void flipBoolean() {
-		setisHeld(!isHeld());
-		ol.updateDie(this);
-	}
 }

@@ -5,6 +5,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
 public abstract class Die extends JComponent {
+	protected ObjectListener ol;
+	private boolean isHeld;
 	private int dieSymbol;
 	private ImageIcon dieFace;
 	private Random randGen;
@@ -18,6 +20,19 @@ public abstract class Die extends JComponent {
 	public void changeImage(String imagePath) {
 		dieFace = new ImageIcon(this.getClass().getResource(imagePath));
 		this.setSize(dieFace.getImage().getWidth(null), dieFace.getImage().getHeight(null));
+	}
+	
+	public boolean isHeld() {
+		return isHeld;
+	}
+
+	public void setisHeld(boolean dieHeld) {
+		this.isHeld = dieHeld;
+	}
+	
+	public void flipBoolean() {
+		setisHeld(!isHeld());
+		ol.updateDie(this);
 	}
 
 	public int getDieSymbol() {

@@ -1,25 +1,16 @@
 package edu.neumont.csc150.fp.barryj.crown;
 
+import java.util.Random;
 import edu.neumont.csc150.fp.barryj.Die;
+import edu.neumont.csc150.fp.barryj.ObjectListener;
 
 public class CrownDie extends Die {
-	private String dieColor;
-
-	public CrownDie() {
-		
-	}
+	private Random randGen = new Random();
 	
-	public CrownDie(String color, int symbol) {
-		dieColor = color;
-		super.setDieSymbol(symbol);
-	}
-
-	public String getDieColor() {
-		return dieColor;
-	}
-
-	public void setDieColor(String dieColor) {
-		this.dieColor = dieColor;
+	public CrownDie(ObjectListener listener) {
+		super.ol = listener;
+		setDieSymbol(randGen.nextInt(6) + 1);
+		changeImage("/edu/neumont/csc150/fp/barryj/images/c" + getDieSymbol() + ".jpg");
 	}
 
 }

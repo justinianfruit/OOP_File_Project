@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.*;
+
+import edu.neumont.csc150.fp.barryj.Die;
 import edu.neumont.csc150.fp.barryj.ObjectListener;
 
 public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener {
@@ -156,7 +158,7 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 	}
 
 	@Override
-	public void updateDie(YahtzeeDie die) {
+	public void updateDie(Die die) {
 		if (die.isHeld()) {
 			die.changeImage("/edu/neumont/csc150/fp/barryj/images/" + die.getDieSymbol() + "L.jpg");
 		} else if (!die.isHeld()) {
@@ -165,7 +167,7 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 	}
 
 	@Override
-	public void updateUI(int i, YahtzeeDie die) {
+	public void updateUI(int i, Die die) {
 		picHolders[i].setIcon(die.getDieFace());
 	}
 
@@ -243,5 +245,9 @@ public class YahtzeeGUI implements MouseListener, ActionListener, ObjectListener
 			System.exit(0);
 		}
 
+	}
+
+	@Override
+	public void updateSelection(int i, Die die) {
 	}
 }
