@@ -13,9 +13,9 @@ public class CrownGame implements GameController {
 	public CrownGame() {
 		score = 0;
 		cg = new CandAGUI(this, score);
+		selectedDie = new CrownDie(cg);
 		dice = new CrownDie[] { new CrownDie(cg), new CrownDie(cg), new CrownDie(cg) };
 		for (int j = 0; j < 3; j++) {
-			cg.updateDie(dice[j]);
 			cg.updateUI(j, dice[j]);
 		}
 		cg.setDice(dice);
@@ -25,9 +25,7 @@ public class CrownGame implements GameController {
 	public void roll() {
 		for (int i = 0; i < 3; i++) {
 			dice[i].setDieSymbol(gen.nextInt(6) + 1);
-			dice[i].setDieFace(
-					new ImageIcon("/edu/neumont/csc150/fp/barryj/images/" + dice[i].getDieSymbol() + ".png"));
-			cg.updateDie(dice[i]);
+			dice[i].changeImage("/edu/neumont/csc150/fp/barryj/images/c" + dice[i].getDieSymbol() + ".png");
 			cg.updateUI(i, dice[i]);
 		}
 		checkOutcome();
@@ -36,7 +34,7 @@ public class CrownGame implements GameController {
 	@Override
 	public int checkNum(int num) {
 		int ref = 0;
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 3; i++) {
 			if (num == dice[i].getDieSymbol()) {
 				ref += 1;
 			}

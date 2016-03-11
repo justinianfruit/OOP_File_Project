@@ -1,6 +1,8 @@
 package edu.neumont.csc150.fp.barryj.crown;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,14 +54,17 @@ public class CandAGUI implements ActionListener, MouseListener, ObjectListener {
 
 		scoreLbl = new JLabel("Score: ");
 		scorePanel.add(scoreLbl);
-		
-		topBoard = new CrownDie[6];
+
 		selections = new JLabel[6];
+		topBoard = new CrownDie[6];
 		for (int i = 0; i < selections.length; i++) {
 			selections[i] = new JLabel("");
 			topBoard[i] = new CrownDie(this);
 			topBoard[i].setDieSymbol(i + 1);
-			selections[i].setIcon(topBoard[i].getDieFace());
+			topBoard[i].changeImage("/edu/neumont/csc150/fp/barryj/images/topc" + topBoard[i].getDieSymbol() + "p.png");
+			updateSelection(i, topBoard[i]);
+			selections[i].setHorizontalAlignment(SwingConstants.CENTER);
+		    selections[i].setVerticalAlignment(SwingConstants.CENTER);
 			selections[i].addMouseListener(this);
 			centerCenter.add(selections[i]);
 		}
@@ -67,10 +72,21 @@ public class CandAGUI implements ActionListener, MouseListener, ObjectListener {
 		picHolders = new JLabel[3];
 		for (int i = 0; i < 3; i++) {
 			picHolders[i] = new JLabel();
+			picHolders[i].setHorizontalAlignment(SwingConstants.CENTER);
+		    picHolders[i].setVerticalAlignment(SwingConstants.CENTER);
 			centerSouth.add(picHolders[i]);
 		}
-		
-		centerPanel.add(centerCenter, BorderLayout.CENTER);
+
+		centerCenter.setBackground(Color.white);
+		centerSouth.setBackground(Color.white);
+		centerPanel.setBackground(Color.white);
+		rollPanel.setBackground(Color.white);
+		exitPanel.setBackground(Color.white);
+		scorePanel.setBackground(Color.white);
+		westPanel.setBackground(Color.white);
+		backgroundPanel.setBackground(Color.white);
+
+		centerPanel.add(centerCenter, BorderLayout.NORTH);
 		centerPanel.add(centerSouth, BorderLayout.SOUTH);
 		rollPanel.add(roll);
 		exitPanel.add(exit);
@@ -84,7 +100,7 @@ public class CandAGUI implements ActionListener, MouseListener, ObjectListener {
 		window.setSize(700, 500);
 		window.setLocationRelativeTo(null);
 	}
-	
+
 	public void setDice(CrownDie[] dice) {
 		for (int i = 0; i < 3; i++) {
 			picHolders[i].setIcon(dice[i].getDieFace());
@@ -94,9 +110,9 @@ public class CandAGUI implements ActionListener, MouseListener, ObjectListener {
 	@Override
 	public void updateDie(Die die) {
 		if (die.isHeld()) {
-			die.changeImage("/edu/neumont/csc150/fp/barryj/images/c" + die.getDieSymbol() + "p.png");
+			die.changeImage("/edu/neumont/csc150/fp/barryj/images/topc" + die.getDieSymbol() + ".png");
 		} else if (!die.isHeld()) {
-			die.changeImage("/edu/neumont/csc150/fp/barryj/images/c" + die.getDieSymbol() + ".png");
+			die.changeImage("/edu/neumont/csc150/fp/barryj/images/topc" + die.getDieSymbol() + "p.png");
 		}
 	}
 
@@ -104,7 +120,7 @@ public class CandAGUI implements ActionListener, MouseListener, ObjectListener {
 	public void updateSelection(int i, Die die) {
 		selections[i].setIcon(die.getDieFace());
 	}
-	
+
 	@Override
 	public void updateUI(int i, Die die) {
 		picHolders[i].setIcon(die.getDieFace());
@@ -132,12 +148,12 @@ public class CandAGUI implements ActionListener, MouseListener, ObjectListener {
 						topBoard[j].setDieFace(new ImageIcon(
 								"/edu/neumont/csc150/fp/barryj/images/c" + topBoard[j].getDieSymbol() + ".png"));
 						updateDie(topBoard[j]);
-						updateUI(j, topBoard[j]);
+						updateSelection(j, topBoard[j]);
 					}
 				}
 				topBoard[i].setisHeld(true);
 				updateDie(topBoard[i]);
-				updateUI(i, topBoard[i]);
+				updateSelection(i, topBoard[i]);
 				gc.setSelected(topBoard[i]);
 			}
 		}
@@ -147,14 +163,17 @@ public class CandAGUI implements ActionListener, MouseListener, ObjectListener {
 	public void mouseEntered(MouseEvent e) {
 
 	}
+
 	@Override
 	public void mouseExited(MouseEvent e) {
 
 	}
+
 	@Override
 	public void mousePressed(MouseEvent e) {
 
 	}
+
 	@Override
 	public void mouseReleased(MouseEvent e) {
 
