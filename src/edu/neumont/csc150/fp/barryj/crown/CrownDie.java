@@ -10,7 +10,7 @@ public class CrownDie extends Die {
 	public CrownDie(ObjectListener listener) {
 		super.ol = listener;
 		setDieSymbol(randGen.nextInt(6) + 1);
-		changeImage("/edu/neumont/csc150/fp/barryj/images/c" + getDieSymbol() + ".jpg");
+		changeImage("/edu/neumont/csc150/fp/barryj/images/c" + getDieSymbol() + ".png");
 	}
 
 }

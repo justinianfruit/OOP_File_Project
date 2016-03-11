@@ -6,9 +6,9 @@ public interface GameController {
 	
 	public void checkOutcome();
 	
-	public int getScore();
+	public int checkNum(int num);
 	
-	public void setScore(int score);
+	public int getScore();
 	
 	public CrownDie getSelected();
 	

@@ -26,26 +26,44 @@ public class CrownGame implements GameController {
 		for (int i = 0; i < 3; i++) {
 			dice[i].setDieSymbol(gen.nextInt(6) + 1);
 			dice[i].setDieFace(
-					new ImageIcon("/edu/neumont/csc150/fp/barryj/images/" + dice[i].getDieSymbol() + ".jpg"));
+					new ImageIcon("/edu/neumont/csc150/fp/barryj/images/" + dice[i].getDieSymbol() + ".png"));
 			cg.updateDie(dice[i]);
 			cg.updateUI(i, dice[i]);
 		}
 		checkOutcome();
 	}
+	
+	@Override
+	public int checkNum(int num) {
+		int ref = 0;
+		for (int i = 0; i < 5; i++) {
+			if (num == dice[i].getDieSymbol()) {
+				ref += 1;
+			}
+		}
+		return ref;
+	}
 
 	@Override
 	public void checkOutcome() {
-
+		int increment = 0;
+		for (int i = 0; i < 6; i++) {
+			if (checkNum(selectedDie.getDieSymbol()) < 1) {
+				increment = -3;
+			} else if (checkNum(selectedDie.getDieSymbol()) == 1) {
+				increment = 1;
+			} else if (checkNum(selectedDie.getDieSymbol()) == 2) { 
+				increment = 5;
+			} else {
+				increment = 10;
+			}
+		}
+		score += increment;
 	}
 
 	@Override
 	public int getScore() {
 		return score;
-	}
-
-	@Override
-	public void setScore(int score) {
-		this.score = score;
 	}
 
 	@Override
@@ -57,5 +75,6 @@ public class CrownGame implements GameController {
 	public void setSelected(CrownDie cd) {
 		selectedDie = cd;
 	}
+
 
 }

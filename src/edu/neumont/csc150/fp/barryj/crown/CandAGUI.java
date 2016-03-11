@@ -13,6 +13,7 @@ import edu.neumont.csc150.fp.barryj.ObjectListener;
 public class CandAGUI implements ActionListener, MouseListener, ObjectListener {
 	GameController gc;
 	JFrame window;
+	ImageIcon frameIcon;
 	JPanel backgroundPanel;
 	JPanel westPanel;
 	JPanel scorePanel;
@@ -29,14 +30,15 @@ public class CandAGUI implements ActionListener, MouseListener, ObjectListener {
 	CrownDie[] topBoard;
 	JLabel[] picHolders;
 	JLabel scoreLbl;
-	JLabel pointsLbl;
 
 	public CandAGUI(GameController game, int s) {
 		gc = game;
 		window = new JFrame("Crown and Anchor");
+		frameIcon = new ImageIcon(this.getClass().getResource("/edu/neumont/csc150/fp/barryj/images/crownIcon.png"));
+		window.setIconImage(frameIcon.getImage());
 		backgroundPanel = new JPanel(new BorderLayout());
 		westPanel = new JPanel(new GridLayout(3, 1));
-		scorePanel = new JPanel(new GridLayout(1, 2));
+		scorePanel = new JPanel();
 		rollPanel = new JPanel();
 		exitPanel = new JPanel();
 		centerPanel = new JPanel(new BorderLayout());
@@ -49,22 +51,21 @@ public class CandAGUI implements ActionListener, MouseListener, ObjectListener {
 		exit.addActionListener(this);
 
 		scoreLbl = new JLabel("Score: ");
-		pointsLbl = new JLabel("" + s);
 		scorePanel.add(scoreLbl);
-		scorePanel.add(pointsLbl);
 		
 		topBoard = new CrownDie[6];
 		selections = new JLabel[6];
 		for (int i = 0; i < selections.length; i++) {
+			selections[i] = new JLabel("");
 			topBoard[i] = new CrownDie(this);
 			topBoard[i].setDieSymbol(i + 1);
-			selections[i] = new JLabel("");
 			selections[i].setIcon(topBoard[i].getDieFace());
 			selections[i].addMouseListener(this);
 			centerCenter.add(selections[i]);
 		}
 
-		for (int i = 0; i < picHolders.length; i++) {
+		picHolders = new JLabel[3];
+		for (int i = 0; i < 3; i++) {
 			picHolders[i] = new JLabel();
 			centerSouth.add(picHolders[i]);
 		}
@@ -73,14 +74,14 @@ public class CandAGUI implements ActionListener, MouseListener, ObjectListener {
 		centerPanel.add(centerSouth, BorderLayout.SOUTH);
 		rollPanel.add(roll);
 		exitPanel.add(exit);
+		westPanel.add(scorePanel);
 		westPanel.add(rollPanel);
 		westPanel.add(exitPanel);
-		westPanel.add(scorePanel);
 		backgroundPanel.add(westPanel, BorderLayout.WEST);
 		backgroundPanel.add(centerPanel, BorderLayout.CENTER);
 		window.add(backgroundPanel);
 		window.setVisible(true);
-		window.setSize(700, 550);
+		window.setSize(700, 500);
 		window.setLocationRelativeTo(null);
 	}
 	
@@ -93,9 +94,9 @@ public class CandAGUI implements ActionListener, MouseListener, ObjectListener {
 	@Override
 	public void updateDie(Die die) {
 		if (die.isHeld()) {
-			die.changeImage("/edu/neumont/csc150/fp/barryj/images/c" + die.getDieSymbol() + "p.jpg");
+			die.changeImage("/edu/neumont/csc150/fp/barryj/images/c" + die.getDieSymbol() + "p.png");
 		} else if (!die.isHeld()) {
-			die.changeImage("/edu/neumont/csc150/fp/barryj/images/c" + die.getDieSymbol() + ".jpg");
+			die.changeImage("/edu/neumont/csc150/fp/barryj/images/c" + die.getDieSymbol() + ".png");
 		}
 	}
 
@@ -113,13 +114,12 @@ public class CandAGUI implements ActionListener, MouseListener, ObjectListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == roll) {
 			gc.roll();
-			pointsLbl.setText("" + gc.getScore());
+			scoreLbl.setText("Score: " + gc.getScore());
 		}
 
 		if (e.getSource() == exit) {
 			System.exit(0);
 		}
-
 	}
 
 	@Override
@@ -130,7 +130,7 @@ public class CandAGUI implements ActionListener, MouseListener, ObjectListener {
 					if (topBoard[j].isHeld()) {
 						topBoard[j].flipBoolean();
 						topBoard[j].setDieFace(new ImageIcon(
-								"/edu/neumont/csc150/fp/barryj/images/c" + topBoard[j].getDieSymbol() + ".jpg"));
+								"/edu/neumont/csc150/fp/barryj/images/c" + topBoard[j].getDieSymbol() + ".png"));
 						updateDie(topBoard[j]);
 						updateUI(j, topBoard[j]);
 					}
